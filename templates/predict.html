@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Churn Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container">
+    <h3>Enter Customer Info to Predict Churn</h3>
+    <form method="POST">
+      <div class="mb-3">
+        <label>MonthlyCharges</label>
+        <input class="form-control" name="MonthlyCharges" required />
+      </div>
+      <div class="mb-3">
+        <label>tenure</label>
+        <input class="form-control" name="tenure" required />
+      </div>
+      <div class="mb-3">
+        <label>TotalCharges</label>
+        <input class="form-control" name="TotalCharges" required />
+      </div>
+      <div class="mb-3">
+        <label>Contract</label>
+        <select class="form-control" name="Contract">
+          <option value="Month-to-month">Month-to-month</option>
+          <option value="One year">One year</option>
+          <option value="Two year">Two year</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label>InternetService</label>
+        <select class="form-control" name="InternetService">
+          <option value="DSL">DSL</option>
+          <option value="Fiber optic">Fiber optic</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+    {% if result %}
+      <div class="alert alert-info mt-4">
+        <strong>Prediction:</strong> Customer is {{ result }}.
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
