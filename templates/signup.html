@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | ChurnGuard | AI-Powered Churn Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4cc9f0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: var(--dark-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 3rem 0;
+      border-radius: 0 0 2rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .signup-card {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+
+    .form-control {
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid #dee2e6;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+    }
+
+    .input-group-text {
+      background-color: transparent;
+      border-right: none;
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+
+    .input-group .form-control {
+      border-left: none;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+
+    .social-signup {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0.5rem;
+      background-color: #f8f9fa;
+      color: var(--dark-color);
+      border: 1px solid #dee2e6;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .plan-selector {
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .plan-selector:hover {
+      border-color: var(--primary-color);
+    }
+
+    .plan-selector.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+
+    .plan-name {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .plan-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 2rem 0;
+      margin-top: auto;
+    }
+
+    .password-strength {
+      height: 5px;
+      border-radius: 5px;
+      margin-top: 5px;
+      background-color: #e9ecef;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="fas fa-shield-alt me-2"></i>
+        ChurnGuard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary ms-2" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Signup Hero Section -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-5 fw-bold mb-3">Join ChurnGuard</h1>
+      <p class="lead">Sign up today and start predicting customer churn with AI precision</p>
+    </div>
+  </section>
+
+  <!-- Signup Form Section -->
+  <div class="container mb-5">
+    <div class="card signup-card">
+      <h3 class="text-center mb-4">Create Your Account</h3>
+
+      <form id="signupForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="text" class="form-control" id="firstName" placeholder="John" required>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Work Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            <input type="email" class="form-control" id="email" placeholder="name@company.com" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="company" class="form-label">Company Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-building"></i></span>
+            <input type="text" class="form-control" id="company" placeholder="Your Company" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Create Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+          </div>
+          <div class="password-strength">
+            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+          </div>
+          <small class="text-muted">Password must be at least 8 characters with letters, numbers, and special characters</small>
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="••••••••" required>
+          </div>
+        </div>
+
+        <h5 class="mt-4 mb-3">Choose your plan</h5>
+
+        <div class="plan-selector selected" data-plan="starter">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="plan-name">Starter</div>
+              <p class="mb-0">Perfect for small businesses</p>
+            </div>
+            <div class="plan-price">$99<small>/mo</small></div>
+          </div>
+        </div>
+
+        <div class="plan-selector" data-plan="professional">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="plan-name">Professional</div>
+              <p class="mb-0">For growing businesses</p>
+            </div>
+            <div class="plan-price">$199<small>/mo</small></div>
+          </div>
+        </div>
+
+        <div class="plan-selector" data-plan="enterprise">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="plan-name">Enterprise</div>
+              <p class="mb-0">Advanced features for large organizations</p>
+            </div>
+            <div class="plan-price">$399<small>/mo</small></div>
+          </div>
+        </div>
+
+        <div class="mb-3 mt-4 form-check">
+          <input type="checkbox" class="form-check-input" id="terms" required>
+          <label class="form-check-label" for="terms">I agree to the <a href="/terms" class="text-decoration-none">Terms of Service</a> and <a href="/privacy" class="text-decoration-none">Privacy Policy</a></label>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        </div>
+      </form>
+
+      <div class="text-center mt-4">
+        <p>Already have an account? <a href="/login" class="text-decoration-none">Sign in</a></p>
+      </div>
+
+      <div class="social-signup">
+        <p class="text-muted">Or sign up with</p>
+        <div>
+          <a href="#" class="social-btn">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="social-btn">
+            <i class="fab fa-microsoft"></i>
+          </a>
+          <a href="#" class="social-btn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>ChurnGuard</h5>
+          <p>Advanced AI solutions for customer retention</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="/" class="text-white">Home</a></li>
+            <li><a href="/predict" class="text-white">Predict</a></li>
+            <li><a href="/visualize" class="text-white">Visualize</a></li>
+            <li><a href="/contact" class="text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <p>Email: info@churnguard.ai</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>© 2025 ChurnGuard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Password strength meter
+      const passwordInput = document.getElementById('password');
+      const strengthBar = document.getElementById('passwordStrengthBar');
+
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+
+        if (password.length >= 8) strength += 25;
+        if (password.match(/[A-Z]/)) strength += 25;
+        if (password.match(/[0-9]/)) strength += 25;
+        if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+
+        strengthBar.style.width = strength + '%';
+
+        if (strength <= 25) {
+          strengthBar.style.backgroundColor = '#dc3545'; // weak
+        } else if (strength <= 50) {
+          strengthBar.style.backgroundColor = '#ffc107'; // medium
+        } else if (strength <= 75) {
+          strengthBar.style.backgroundColor = '#0dcaf0'; // good
+        } else {
+          strengthBar.style.backgroundColor = '#198754'; // strong
+        }
+      });
+
+      // Confirm password validation
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+
+      confirmPasswordInput.addEventListener('input', function() {
+        if (this.value !== passwordInput.value) {
+          this.setCustomValidity('Passwords do not match');
+        } else {
+          this.setCustomValidity('');
+        }
+      });
+
+      // Plan selector
+      const planSelectors = document.querySelectorAll('.plan-selector');
+
+      planSelectors.forEach(plan => {
+        plan.addEventListener('click', function() {
+          // Remove selected class from all plans
+          planSelectors.forEach(p => p.classList.remove('selected'));
+          // Add selected class to clicked plan
+          this.classList.add('selected');
+        });
+      });
+
+      // Form submission
+      const form = document.getElementById('signupForm');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get selected plan
+        const selectedPlan = document.querySelector('.plan-selector.selected').dataset.plan;
+
+        // Here you would normally send the form data to your server
+        console.log('Form submitted!');
+        console.log('Selected plan:', selectedPlan);
+
+        // Redirect to dashboard or confirmation page
+        // window.location.href = '/dashboard';
+
+        // For demo purposes, show alert
+        alert('Account created successfully! Redirecting to dashboard...');
+      });
+
+      // Toggle password visibility
+      const togglePassword = document.createElement('span');
+      togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+      togglePassword.style.position = 'absolute';
+      togglePassword.style.right = '15px';
+      togglePassword.style.top = '50%';
+      togglePassword.style.transform = 'translateY(-50%)';
+      togglePassword.style.cursor = 'pointer';
+      togglePassword.style.zIndex = '10';
+
+      const passwordInputGroup = passwordInput.parentElement;
+      passwordInputGroup.style.position = 'relative';
+      passwordInputGroup.appendChild(togglePassword);
+
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+
+        // Also toggle confirm password field
+        confirmPasswordInput.setAttribute('type', type);
+      });
+    });
+  </script>
+</body>
+</html>

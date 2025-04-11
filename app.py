@@ -17,7 +17,7 @@ columns = joblib.load("columns.pkl")
 os.makedirs("static", exist_ok=True)
 
 # Load test data (or use dummy data to regenerate visuals)
-url = "https://raw.githubusercontent.com/blastchar/telco-churn/master/WA_Fn-UseC_-Telco-Customer-Churn.csv"
+url = "https://raw.githubusercontent.com/Alpha0705/Customer-Churn-Prediction/main/WA_Fn-UseC_-Telco-Customer-Churn.csv"
 df = pd.read_csv(url)
 df = df.dropna()
 df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce').fillna(0)
@@ -84,3 +84,22 @@ def predict():
 @app.route("/visualize")
 def visualize():
     return render_template("visualize.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)

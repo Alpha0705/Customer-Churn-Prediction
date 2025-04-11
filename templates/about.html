@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | ChurnGuard | AI-Powered Churn Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4cc9f0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: var(--dark-color);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 5rem 0;
+      border-radius: 0 0 2rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: #6c757d;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-radius: 0;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary-color);
+      background-color: transparent;
+      border: none;
+    }
+
+    .nav-tabs .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .nav-tabs .nav-link:hover {
+      border-color: transparent;
+      color: var(--primary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .team-member {
+      text-align: center;
+    }
+
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .timeline:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .timeline-item:before {
+      content: '';
+      position: absolute;
+      left: -2.35rem;
+      top: 0.25rem;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: var(--primary-color);
+    }
+
+    .timeline-date {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="fas fa-shield-alt me-2"></i>
+        ChurnGuard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary ms-2" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-4">About ChurnGuard</h1>
+      <p class="lead mb-4">Learn about our mission, our team, and the story behind our AI-powered churn prediction technology</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container mb-5">
+    <!-- Our Story Section -->
+    <div class="card p-4 mb-5">
+      <h3 class="mb-4">Our Story</h3>
+      <p>ChurnGuard was founded in 2022 by a team of data scientists and customer retention experts who recognized a critical gap in the market. While businesses were investing heavily in customer acquisition, they lacked sophisticated tools to predict and prevent customer churn.</p>
+
+      <div class="timeline mt-5">
+        <div class="timeline-item">
+          <div class="timeline-date">January 2022</div>
+          <h5 class="mt-2">The Idea Is Born</h5>
+          <p>Our founders identified the need for an AI-driven solution to the costly problem of customer churn.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">June 2022</div>
+          <h5 class="mt-2">First Prototype</h5>
+          <p>We developed our first machine learning model capable of predicting churn with 98% accuracy.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">March 2023</div>
+          <h5 class="mt-2">Beta Launch</h5>
+          <p>ChurnGuard Beta was launched with 10 pilot customers across SaaS and subscription industries.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">January 2024</div>
+          <h5 class="mt-2">Public Launch</h5>
+          <p>After refining our algorithms, we officially launched ChurnGuard to the public.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Today</div>
+          <h5 class="mt-2">Growing Impact</h5>
+          <p>ChurnGuard now serves over 500 businesses worldwide, saving our clients millions in potential lost revenue.</p>
+        </div>
+      </div>
+
+      <h3 class="mt-5 mb-4">Our Mission</h3>
+      <p>At ChurnGuard, our mission is to empower businesses with predictive intelligence that transforms customer retention. We believe that by identifying at-risk customers early, companies can take proactive steps to enhance customer experience, build stronger relationships, and maximize lifetime value.</p>
+
+      <div class="row mt-4 mb-4">
+        <div class="col-md-4">
+          <div class="card stat-card">
+            <div class="stat-number">500+</div>
+            <p class="mb-0">Businesses using ChurnGuard</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card stat-card">
+            <div class="stat-number">12M+</div>
+            <p class="mb-0">Customer profiles analyzed</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card stat-card">
+            <div class="stat-number">94%</div>
+            <p class="mb-0">Current prediction accuracy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Technology Section -->
+    <div class="card p-4 mb-5">
+      <h3 class="mb-4">Our Technology</h3>
+      <p>ChurnGuard leverages cutting-edge machine learning algorithms and artificial intelligence to transform raw customer data into actionable insights.</p>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h5><i class="fas fa-code me-2 text-primary"></i> Advanced ML Models</h5>
+          <p>Our proprietary algorithms incorporate ensemble learning techniques including gradient boosting and deep neural networks to achieve industry-leading prediction accuracy.</p>
+
+          <h5 class="mt-4"><i class="fas fa-database me-2 text-primary"></i> Robust Data Processing</h5>
+          <p>ChurnGuard can process structured and unstructured data from multiple sources, creating a comprehensive view of customer behavior patterns.</p>
+        </div>
+
+        <div class="col-md-6">
+          <h5><i class="fas fa-robot me-2 text-primary"></i> Continuous Learning</h5>
+          <p>Our systems constantly improve through feedback loops, adapting to new patterns and increasing prediction accuracy over time.</p>
+
+          <h5 class="mt-4"><i class="fas fa-shield-alt me-2 text-primary"></i> Enterprise-Grade Security</h5>
+          <p>All customer data is protected with bank-level encryption and compliance with international data protection regulations.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Team Section -->
+    <h3 class="text-center mb-4">Our Leadership Team</h3>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="team-member">
+            <img src="/api/placeholder/150/150" alt="Sarah Chen, CEO">
+            <h5 class="mt-3">Sarah Chen</h5>
+            <p class="text-muted">CEO & Co-Founder</p>
+            <p>Former data science lead at Zendesk with 15+ years of experience in customer analytics.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="team-member">
+            <img src="/api/placeholder/150/150" alt="Marcus Johnson, CTO">
+            <h5 class="mt-3">Marcus Johnson</h5>
+            <p class="text-muted">CTO & Co-Founder</p>
+            <p>AI researcher with a PhD from MIT and previous experience at Google AI.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="team-member">
+            <img src="/api/placeholder/150/150" alt="Elena Rodriguez, COO">
+            <h5 class="mt-3">Elena Rodriguez</h5>
+            <p class="text-muted">COO</p>
+            <p>Former VP of Customer Success at Salesforce with expertise in retention strategies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clients Section -->
+    <div class="card p-4 mt-5 text-center">
+      <h3 class="mb-4">Trusted By Industry Leaders</h3>
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-4 col-md-2 mb-4">
+              <i class="fa-solid fa-building feature-icon"></i>
+              <p>TechCorp</p>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <i class="fa-solid fa-layer-group feature-icon"></i>
+              <p>StackAI</p>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <i class="fa-solid fa-rocket feature-icon"></i>
+              <p>LaunchX</p>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <i class="fa-solid fa-cubes feature-icon"></i>
+              <p>CubeTech</p>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <i class="fa-solid fa-leaf feature-icon"></i>
+              <p>GreenSubs</p>
+            </div>
+            <div class="col-4 col-md-2 mb-4">
+              <i class="fa-solid fa-globe feature-icon"></i>
+              <p>WorldData</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>ChurnGuard</h5>
+          <p>Advanced AI solutions for customer retention</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="/" class="text-white">Home</a></li>
+            <li><a href="/predict" class="text-white">Predict</a></li>
+            <li><a href="/visualize" class="text-white">Visualize</a></li>
+            <li><a href="/contact" class="text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <p>Email: info@churnguard.ai</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>© 2025 ChurnGuard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Add script to handle tab navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set active tab based on current URL
+      const currentPath = window.location.pathname;
+      const tabLinks = document.querySelectorAll('.nav-tabs .nav-link');
+
+      // Remove active class from all tabs first
+      tabLinks.forEach(tab => tab.classList.remove('active'));
+
+      // Find and activate the correct tab
+      let activeTabFound = false;
+
+      tabLinks.forEach(tab => {
+        const tabPath = tab.getAttribute('href');
+        // Check if current path matches the tab's href
+        if (currentPath === tabPath ||
+            (currentPath === '/' && tabPath === '/') ||
+            (currentPath === '' && tabPath === '/')) {
+          tab.classList.add('active');
+          activeTabFound = true;
+        }
+      });
+
+      // If no matching tab found (eg. on sub-pages), default to home tab
+      if (!activeTabFound && tabLinks.length > 0) {
+        // Find the home/overview tab (first tab)
+        tabLinks[0].classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>

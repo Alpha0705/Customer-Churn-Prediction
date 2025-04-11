@@ -1,20 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Churn Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChurnGuard | AI-Powered Churn Prediction</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4cc9f0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: var(--dark-color);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 5rem 0;
+      border-radius: 0 0 2rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: #6c757d;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-radius: 0;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary-color);
+      background-color: transparent;
+      border: none;
+    }
+
+    .nav-tabs .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .nav-tabs .nav-link:hover {
+      border-color: transparent;
+      color: var(--primary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
-<body class="p-4">
-  <div class="container">
-    <h2 class="mb-4">AI-Powered Churn Prediction System</h2>
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="/predict">Predict</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/visualize">Visualize</a>
-      </li>
-    </ul>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="fas fa-shield-alt me-2"></i>
+        ChurnGuard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary ms-2" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-4">AI-Powered Churn Prediction System</h1>
+      <p class="lead mb-4">Predict and prevent customer churn before it happens with advanced machine learning technology</p>
+      <button class="btn btn-light btn-lg px-4 me-2">Get Started</button>
+      <button class="btn btn-outline-light btn-lg px-4">Schedule Demo</button>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container mb-5">
+    <!-- Tabs -->
+    <div class="card p-4 mb-5">
+      <ul class="nav nav-tabs" id="churnTabs">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/">
+            <i class="fas fa-home me-2"></i> Overview
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/predict">
+            <i class="fas fa-robot me-2"></i> Predict
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="/visualize">
+            <i class="fas fa-chart-pie me-2"></i> Visualize
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content p-3">
+        <!-- Home Tab Content -->
+        <div class="tab-pane fade show active" id="home" role="tabpanel">
+          <h3 class="mb-4">Understanding Customer Churn</h3>
+          <p>Customer churn refers to the loss of clients or customers. For subscription-based businesses, it's calculated as the percentage of service subscribers who discontinue their subscriptions within a given time period.</p>
+
+          <div class="row mt-4 mb-4">
+            <div class="col-md-4">
+              <div class="card stat-card">
+                <div class="stat-number">35%</div>
+                <p class="mb-0">Average improvement in churn prediction accuracy</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card stat-card">
+                <div class="stat-number">$2.4M</div>
+                <p class="mb-0">Average annual savings for enterprise clients</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card stat-card">
+                <div class="stat-number">28%</div>
+                <p class="mb-0">Improved customer retention rate</p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="mt-4 mb-3">Why Predicting Churn Matters</h4>
+          <p>Acquiring new customers can cost five times more than retaining existing ones. By identifying customers at risk of churning, companies can take proactive measures to improve retention and maximize customer lifetime value.</p>
+
+          <h4 class="mt-4 mb-3">How Our AI Solution Works</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <ol>
+                <li class="mb-2"><strong>Data Collection</strong> - We analyze customer behavior patterns, engagement metrics, and historical data</li>
+                <li class="mb-2"><strong>Machine Learning</strong> - Our algorithm identifies early warning signs of potential churn</li>
+                <li class="mb-2"><strong>Risk Scoring</strong> - Each customer receives a churn probability score</li>
+                <li class="mb-2"><strong>Action Recommendations</strong> - We suggest personalized retention strategies</li>
+              </ol>
+            </div>
+            <div class="col-md-6">
+              <div class="card p-4">
+                <h5>Ready to reduce churn?</h5>
+                <p>Use our prediction tool to identify at-risk customers and implement targeted retention strategies.</p>
+                <a href="/predict" class="btn btn-primary">Go to Prediction Tool</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <h3 class="text-center mb-4">Key Features</h3>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="text-center">
+            <i class="fas fa-brain feature-icon"></i>
+            <h5 class="mt-3">AI-Powered Predictions</h5>
+            <p>Our machine learning models analyze multiple data points to accurately predict customer churn.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="text-center">
+            <i class="fas fa-chart-line feature-icon"></i>
+            <h5 class="mt-3">Advanced Analytics</h5>
+            <p>Interactive dashboards help you visualize trends and understand key churn factors.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="text-center">
+            <i class="fas fa-tasks feature-icon"></i>
+            <h5 class="mt-3">Actionable Recommendations</h5>
+            <p>Receive targeted retention strategies based on individual customer risk profiles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>ChurnGuard</h5>
+          <p>Advanced AI solutions for customer retention</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="/" class="text-white">Home</a></li>
+            <li><a href="/predict" class="text-white">Predict</a></li>
+            <li><a href="/visualize" class="text-white">Visualize</a></li>
+            <li><a href="/contact" class="text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <p>Email: info@churnguard.ai</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>© 2025 ChurnGuard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Add script to handle tab navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set active tab based on current URL
+      const currentPath = window.location.pathname;
+      const tabLinks = document.querySelectorAll('.nav-tabs .nav-link');
+
+      // Remove active class from all tabs first
+      tabLinks.forEach(tab => tab.classList.remove('active'));
+
+      // Find and activate the correct tab
+      let activeTabFound = false;
+
+      tabLinks.forEach(tab => {
+        const tabPath = tab.getAttribute('href');
+        // Check if current path matches the tab's href
+        if (currentPath === tabPath ||
+            (currentPath === '/' && tabPath === '/') ||
+            (currentPath === '' && tabPath === '/')) {
+          tab.classList.add('active');
+          activeTabFound = true;
+        }
+      });
+
+      // If no matching tab found (eg. on sub-pages), default to home tab
+      if (!activeTabFound && tabLinks.length > 0) {
+        // Find the home/overview tab (first tab)
+        tabLinks[0].classList.add('active');
+      }
+    });
+  </script>
 </body>
 </html>

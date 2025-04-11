@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ChurnGuard | AI-Powered Churn Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4cc9f0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: var(--dark-color);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 5rem 0;
+      border-radius: 0 0 2rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: #6c757d;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-radius: 0;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary-color);
+      background-color: transparent;
+      border: none;
+    }
+
+    .nav-tabs .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .nav-tabs .nav-link:hover {
+      border-color: transparent;
+      color: var(--primary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .contact-info-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-right: 1rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+    }
+
+    .office-card {
+      text-align: center;
+    }
+
+    .map-placeholder {
+      height: 180px;
+      background-color: #e9ecef;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="fas fa-shield-alt me-2"></i>
+        ChurnGuard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary ms-2" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-4">Contact Us</h1>
+      <p class="lead mb-4">Get in touch with our team to learn how ChurnGuard can help your business</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container mb-5">
+    <!-- Contact Form Section -->
+    <div class="row">
+      <div class="col-lg-7 mb-4">
+        <div class="card p-4 h-100">
+          <h3 class="mb-4">Send Us a Message</h3>
+          <form>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName" class="form-label">First Name *</label>
+                <input type="text" class="form-control" id="firstName" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName" class="form-label">Last Name *</label>
+                <input type="text" class="form-control" id="lastName" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address *</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="company" class="form-label">Company Name *</label>
+              <input type="text" class="form-control" id="company" required>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone">
+            </div>
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject *</label>
+              <select class="form-select" id="subject" required>
+                <option value="" selected disabled>Select a subject</option>
+                <option value="demo">Request a Demo</option>
+                <option value="pricing">Pricing Information</option>
+                <option value="support">Technical Support</option>
+                <option value="partnership">Partnership Opportunities</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="message" class="form-label">Message *</label>
+              <textarea class="form-control" id="message" rows="5" required></textarea>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="newsletter">
+              <label class="form-check-label" for="newsletter">Subscribe to our newsletter</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card p-4 mb-4">
+          <h3 class="mb-4">Contact Information</h3>
+          <div class="d-flex align-items-center mb-3">
+            <i class="fas fa-envelope contact-info-icon"></i>
+            <div>
+              <h6 class="mb-0">Email Us</h6>
+              <p class="mb-0">info@churnguard.ai</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <i class="fas fa-phone-alt contact-info-icon"></i>
+            <div>
+              <h6 class="mb-0">Call Us</h6>
+              <p class="mb-0">(555) 123-4567</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <i class="fas fa-headset contact-info-icon"></i>
+            <div>
+              <h6 class="mb-0">Support</h6>
+              <p class="mb-0">support@churnguard.ai</p>
+            </div>
+          </div>
+          <hr class="my-4">
+          <h5 class="mb-3">Follow Us</h5>
+          <div class="d-flex">
+            <a href="#" class="me-3 text-primary"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="#" class="me-3 text-primary"><i class="fab fa-twitter fa-2x"></i></a>
+            <a href="#" class="me-3 text-primary"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#" class="text-primary"><i class="fab fa-instagram fa-2x"></i></a>
+          </div>
+        </div>
+
+        <div class="card p-4">
+          <h3 class="mb-4">Schedule a Demo</h3>
+          <p>See ChurnGuard in action and learn how our AI solution can help your business reduce customer churn.</p>
+          <a href="#" class="btn btn-primary">Book a Demo</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offices Section -->
+    <h3 class="text-center my-5">Our Offices</h3>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="office-card">
+            <div class="map-placeholder">
+              <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+            </div>
+            <h5>San Francisco</h5>
+            <p class="mb-1">123 Market Street</p>
+            <p class="mb-1">Suite 400</p>
+            <p class="mb-1">San Francisco, CA 94105</p>
+            <p>United States</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="office-card">
+            <div class="map-placeholder">
+              <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+            </div>
+            <h5>London</h5>
+            <p class="mb-1">45 Finsbury Square</p>
+            <p class="mb-1">Floor 3</p>
+            <p class="mb-1">London, EC2A 1HP</p>
+            <p>United Kingdom</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card p-4 h-100">
+          <div class="office-card">
+            <div class="map-placeholder">
+              <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+            </div>
+            <h5>Singapore</h5>
+            <p class="mb-1">80 Robinson Road</p>
+            <p class="mb-1">#08-01</p>
+            <p class="mb-1">Singapore 068898</p>
+            <p>Singapore</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="card p-4 mt-5">
+      <h3 class="mb-4 text-center">Frequently Asked Questions</h3>
+      <div class="accordion" id="contactFAQ">
+        <div class="accordion-item border-0 mb-3">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button rounded shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              How does ChurnGuard predict customer churn?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#contactFAQ">
+            <div class="accordion-body">
+              ChurnGuard uses advanced machine learning algorithms to analyze customer behavior patterns, engagement metrics, and historical data. Our AI models identify early warning signs of potential churn by recognizing patterns that precede customer departure. The system then assigns a churn probability score to each customer, allowing businesses to take proactive retention measures.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item border-0 mb-3">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              What kind of data does ChurnGuard need?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#contactFAQ">
+            <div class="accordion-body">
+              ChurnGuard can work with various types of customer data, including usage statistics, purchase history, engagement metrics, support interactions, and demographic information. Our system is designed to be flexible and can integrate with most CRM systems, databases, and data warehouses. The more data available, the more accurate our predictions will be.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item border-0 mb-3">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Is ChurnGuard suitable for my industry?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#contactFAQ">
+            <div class="accordion-body">
+              ChurnGuard is designed to be industry-agnostic and has been successfully implemented across various sectors including SaaS, subscription services, telecommunications, financial services, e-commerce, and healthcare. Any business with recurring customers or subscribers can benefit from our churn prediction technology.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item border-0 mb-3">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              How long does implementation take?
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#contactFAQ">
+            <div class="accordion-body">
+              The implementation timeline varies depending on data availability and complexity. Typically, our basic integration can be completed in 2-4 weeks. For more complex implementations with custom features, it may take 6-8 weeks. Our team works closely with your technical staff to ensure a smooth integration process.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item border-0">
+          <h2 class="accordion-header" id="headingFive">
+            <button class="accordion-button collapsed rounded shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              How does pricing work?
+            </button>
+          </h2>
+          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#contactFAQ">
+            <div class="accordion-body">
+              ChurnGuard offers flexible pricing models based on your business size and needs. We offer both subscription-based pricing and custom enterprise solutions. Our starter plans begin at $499/month for businesses with up to 10,000 customers. For detailed pricing information specific to your business needs, please contact our sales team.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>ChurnGuard</h5>
+          <p>Advanced AI solutions for customer retention</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="/" class="text-white">Home</a></li>
+            <li><a href="/predict" class="text-white">Predict</a></li>
+            <li><a href="/visualize" class="text-white">Visualize</a></li>
+            <li><a href="/contact" class="text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <p>Email: info@churnguard.ai</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p>© 2025 ChurnGuard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Add script to handle tab navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set active tab based on current URL
+      const currentPath = window.location.pathname;
+      const tabLinks = document.querySelectorAll('.nav-tabs .nav-link');
+
+      // Remove active class from all tabs first
+      tabLinks.forEach(tab => tab.classList.remove('active'));
+
+      // Find and activate the correct tab
+      let activeTabFound = false;
+
+      tabLinks.forEach(tab => {
+        const tabPath = tab.getAttribute('href');
+        // Check if current path matches the tab's href
+        if (currentPath === tabPath ||
+            (currentPath === '/' && tabPath === '/') ||
+            (currentPath === '' && tabPath === '/')) {
+          tab.classList.add('active');
+          activeTabFound = true;
+        }
+      });
+
+      // If no matching tab found (eg. on sub-pages), default to home tab
+      if (!activeTabFound && tabLinks.length > 0) {
+        // Find the home/overview tab (first tab)
+        tabLinks[0].classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>
