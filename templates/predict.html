@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChurnGuard | AI-Powered Churn Prediction</title>
+  <title>ChurnGuard | Predict Customer Churn</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
@@ -98,24 +98,6 @@
       border-color: var(--secondary-color);
     }
 
-    .stat-card {
-      text-align: center;
-      padding: 1.5rem;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    footer {
-      background-color: var(--dark-color);
-      color: white;
-      padding: 2rem 0;
-      margin-top: 3rem;
-    }
-
     .form-label {
       font-weight: 500;
       margin-bottom: 0.5rem;
@@ -137,6 +119,61 @@
       border: 1px solid var(--success-color);
       color: var(--dark-color);
       border-radius: 0.5rem;
+    }
+
+    .prediction-result {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .prediction-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .churn-icon {
+      color: #dc3545;
+    }
+
+    .stay-icon {
+      color: #198754;
+    }
+
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    .churn-probability {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+
+    .progress {
+      height: 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-impact {
+      border-left: 3px solid var(--primary-color);
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-impact-positive {
+      border-left-color: #198754;
+    }
+
+    .feature-impact-negative {
+      border-left-color: #dc3545;
     }
   </style>
 </head>
@@ -170,18 +207,8 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container text-center">
-      <h1 class="display-4 fw-bold mb-4">AI-Powered Churn Prediction System</h1>
-      <p class="lead mb-4">Predict and prevent customer churn before it happens with advanced machine learning technology</p>
-      <button class="btn btn-light btn-lg px-4 me-2">Get Started</button>
-      <button class="btn btn-outline-light btn-lg px-4">Schedule Demo</button>
-    </div>
-  </section>
-
   <!-- Main Content -->
-  <div class="container mb-5">
+  <div class="container my-5">
     <!-- Tabs -->
     <div class="card p-4 mb-5">
       <ul class="nav nav-tabs" id="churnTabs" role="tablist">
@@ -205,130 +232,329 @@
       <div class="tab-content p-3" id="churnTabsContent">
         <!-- Predict Tab Content -->
         <div class="tab-pane fade show active" id="predict" role="tabpanel">
-          <h3 class="mb-4">Enter Customer Info to Predict Churn</h3>
-          <div class="card p-4">
-            <form method="POST">
+          <h3 class="mb-4">Enter Customer Data to Predict Churn</h3>
+
+          {% if error %}
+          <div class="alert alert-danger mb-4">
+            <i class="fas fa-exclamation-triangle me-2"></i> {{ error }}
+          </div>
+          {% endif %}
+
+          {% if result %}
+          <div class="prediction-result mb-4">
+            {% if result.prediction == "likely to churn" %}
+            <i class="fas fa-user-slash prediction-icon churn-icon"></i>
+            <h4>Churn Risk Alert</h4>
+            <p class="lead">This customer is <strong>{{ result.prediction }}</strong></p>
+            <div class="churn-probability">{{ result.churn_probability }}</div>
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: {{ result.churn_probability }}"></div>
+            </div>
+            {% else %}
+            <i class="fas fa-user-check prediction-icon stay-icon"></i>
+            <h4>Customer Stable</h4>
+            <p class="lead">This customer is <strong>{{ result.prediction }}</strong></p>
+            <div class="churn-probability">{{ result.churn_probability }}</div>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: {{ result.churn_probability }}"></div>
+            </div>
+            {% endif %}
+
+            <div class="mt-4">
+              <h5>Decision Information:</h5>
+              <p><strong>Threshold:</strong> {{ result.threshold }} | <strong>Applied Rule:</strong> {{ result.override }}</p>
+            </div>
+
+            <div class="mt-4">
+              <h5>Top Influencing Features:</h5>
               <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Gender</label>
-                  <select class="form-select" name="gender">
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                  </select>
+                {% for feature in result.feature_impacts %}
+                <div class="col-md-6 mb-2">
+                  <div class="feature-impact {% if feature.Impact > 0 %}feature-impact-positive{% elif feature.Impact < 0 %}feature-impact-negative{% endif %}">
+                    <strong>{{ feature.Feature }}:</strong>
+                    <span class="{% if feature.Impact > 0 %}text-success{% elif feature.Impact < 0 %}text-danger{% endif %}">
+                      Impact: {{ "{:.4f}".format(feature.Impact) }}
+                    </span>
+                  </div>
                 </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h5>Recommended Actions:</h5>
+              {% if result.prediction == "likely to churn" %}
+              <ul class="list-unstyled">
+                <li><i class="fas fa-check-circle me-2 text-success"></i> Reach out with a personalized retention offer</li>
+                <li><i class="fas fa-check-circle me-2 text-success"></i> Schedule a satisfaction follow-up call</li>
+                <li><i class="fas fa-check-circle me-2 text-success"></i> Consider service upgrade options</li>
+              </ul>
+              {% else %}
+              <ul class="list-unstyled">
+                <li><i class="fas fa-check-circle me-2 text-success"></i> Maintain current relationship</li>
+                <li><i class="fas fa-check-circle me-2 text-success"></i> Consider cross-selling opportunities</li>
+                <li><i class="fas fa-check-circle me-2 text-success"></i> Include in loyalty programs</li>
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="card p-4 mb-4">
+            <h5 class="mb-3">Customer Data Summary</h5>
+            <div class="row">
+              {% for key, value in data.items() %}
+              <div class="col-md-4 mb-2">
+                <strong>{{ key }}:</strong> {{ value }}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="text-center mt-4 mb-4">
+            <img src="/static/images/shap_explanation.png" alt="SHAP Feature Explanation" class="img-fluid rounded">
+            <p class="mt-2 text-muted">SHAP values showing feature importance for this prediction</p>
+          </div>
+          {% endif %}
+
+          <div class="card p-4">
+            <form method="POST" action="/predict">
+              <div class="row">
+                <!-- Basic Information -->
+                <h5 class="mb-3">Basic Information</h5>
+
+                <!-- SeniorCitizen -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Senior Citizen</label>
-                  <select class="form-select" name="SeniorCitizen">
+                  <label class="form-label">Senior Citizen <span class="text-danger">*</span></label>
+                  <select class="form-select" name="SeniorCitizen" required>
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                   </select>
                 </div>
+
+                <!-- Gender -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Partner</label>
-                  <select class="form-select" name="Partner">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                  <label class="form-label">Gender <span class="text-danger">*</span></label>
+                  <select class="form-select" name="gender" required>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
                   </select>
                 </div>
+
+                <!-- Partner -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Dependents</label>
-                  <select class="form-select" name="Dependents">
-                    <option value="Yes">Yes</option>
+                  <label class="form-label">Partner <span class="text-danger">*</span></label>
+                  <select class="form-select" name="Partner" required>
                     <option value="No">No</option>
+                    <option value="Yes">Yes</option>
                   </select>
                 </div>
+
+                <!-- Dependents -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Tenure (months)</label>
-                  <input type="number" class="form-control" name="tenure" required />
+                  <label class="form-label">Dependents <span class="text-danger">*</span></label>
+                  <select class="form-select" name="Dependents" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
                 </div>
+
+                <!-- Account Information -->
+                <h5 class="mb-3 mt-4">Account Information</h5>
+
+                <!-- Tenure - High Impact Feature -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Monthly Charges ($)</label>
-                  <input type="number" class="form-control" name="MonthlyCharges" required />
+                  <label class="form-label">Tenure (months) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" name="tenure" min="0" max="120" required />
+                  <small class="text-muted">How long the customer has been with the company</small>
                 </div>
+
+                <!-- Contract Type - High Impact Feature -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Total Charges ($)</label>
-                  <input type="number" class="form-control" name="TotalCharges" required />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Contract</label>
-                  <select class="form-select" name="Contract">
+                  <label class="form-label">Contract Type <span class="text-danger">*</span></label>
+                  <select class="form-select" name="Contract" required>
                     <option value="Month-to-month">Month-to-month</option>
                     <option value="One year">One year</option>
                     <option value="Two year">Two year</option>
                   </select>
+                  <small class="text-muted">Contract type is a major predictor of churn</small>
                 </div>
+
+                <!-- Monthly Charges - High Impact Feature -->
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Internet Service</label>
-                  <select class="form-select" name="InternetService">
+                  <label class="form-label">Monthly Charges ($) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" name="MonthlyCharges" min="0" step="0.01" required />
+                </div>
+
+                <!-- Total Charges - Significant Feature -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Total Charges ($) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" name="TotalCharges" min="0" step="0.01" required />
+                  <small class="text-muted">Total amount charged to the customer so far</small>
+                </div>
+
+                <!-- PaperlessBilling -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Paperless Billing <span class="text-danger">*</span></label>
+                  <select class="form-select" name="PaperlessBilling" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                </div>
+
+                <!-- Payment Method - Significant Feature -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Payment Method <span class="text-danger">*</span></label>
+                  <select class="form-select" name="PaymentMethod" required>
+                    <option value="Electronic check">Electronic check</option>
+                    <option value="Mailed check">Mailed check</option>
+                    <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                    <option value="Credit card (automatic)">Credit card (automatic)</option>
+                  </select>
+                </div>
+
+                <!-- Service Details -->
+                <h5 class="mb-3 mt-4">Service Details</h5>
+
+                <!-- PhoneService -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Phone Service <span class="text-danger">*</span></label>
+                  <select class="form-select" name="PhoneService" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                </div>
+
+                <!-- MultipleLines -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Multiple Lines</label>
+                  <select class="form-select" name="MultipleLines" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No phone service">No phone service</option>
+                  </select>
+                </div>
+
+                <!-- Internet Service - High Impact Feature -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Internet Service <span class="text-danger">*</span></label>
+                  <select class="form-select" name="InternetService" required>
                     <option value="DSL">DSL</option>
                     <option value="Fiber optic">Fiber optic</option>
                     <option value="No">No</option>
                   </select>
                 </div>
+
+                <!-- Online Security -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Online Security</label>
+                  <select class="form-select" name="OnlineSecurity" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <!-- Online Backup -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Online Backup</label>
+                  <select class="form-select" name="OnlineBackup" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <!-- Device Protection -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Device Protection</label>
+                  <select class="form-select" name="DeviceProtection" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <!-- Tech Support - Significant Feature -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Tech Support</label>
+                  <select class="form-select" name="TechSupport" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <!-- Streaming TV -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Streaming TV</label>
+                  <select class="form-select" name="StreamingTV" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <!-- Streaming Movies -->
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Streaming Movies</label>
+                  <select class="form-select" name="StreamingMovies" required>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
               </div>
 
-              <button type="submit" class="btn btn-primary px-4">Predict</button>
+              <div class="mt-4">
+                <button type="submit" class="btn btn-primary px-4 py-2">
+                  <i class="fas fa-calculator me-2"></i> Predict Churn Risk
+                </button>
+                <button type="reset" class="btn btn-outline-secondary px-4 py-2 ms-2">
+                  <i class="fas fa-redo me-2"></i> Reset Form
+                </button>
+              </div>
             </form>
+          </div>
 
-            <!-- Template for result display -->
-            {% if result %}
-              <div class="alert alert-info mt-4">
-                <strong>Prediction:</strong> Customer is <strong>{{ result }}</strong>.
+          <div class="alert alert-info p-4 mt-4">
+            <div class="d-flex">
+              <div class="me-3">
+                <i class="fas fa-info-circle fa-2x text-primary"></i>
               </div>
-            {% endif %}
+              <div>
+                <h5>About This Prediction Tool</h5>
+                <p>This comprehensive form captures all the features used by our XGBoost machine learning model to predict customer churn. The model was trained on historical telecom customer data and has achieved an optimal decision threshold of 0.50.</p>
+              </div>
+            </div>
           </div>
 
           <div class="row mt-4">
             <div class="col-md-6">
               <div class="card p-4 h-100">
-                <h5 class="mb-3">How It Works</h5>
-                <p>Our AI algorithm analyzes the customer information you provide and predicts the likelihood of churn based on patterns identified from millions of customer records.</p>
-                <p class="mb-0">The model considers factors like tenure, monthly charges, contract type, and demographics to generate accurate predictions.</p>
+                <h5><i class="fas fa-lightbulb me-2 text-primary"></i> Key Churn Factors</h5>
+                <ul>
+                  <li><strong>Contract type:</strong> Month-to-month contracts have higher churn rates</li>
+                  <li><strong>Tenure:</strong> New customers are more likely to churn</li>
+                  <li><strong>Monthly charges:</strong> Higher charges can increase churn risk</li>
+                  <li><strong>Internet service:</strong> Fiber optic users show different patterns</li>
+                  <li><strong>Payment method:</strong> Electronic check users have higher churn</li>
+                  <li><strong>Tech support:</strong> Lack of tech support correlates with higher churn</li>
+                </ul>
               </div>
             </div>
             <div class="col-md-6">
               <div class="card p-4 h-100">
-                <h5 class="mb-3">Next Steps</h5>
-                <p>After receiving a prediction, consider these actions:</p>
+                <h5><i class="fas fa-shield-alt me-2 text-primary"></i> Retention Strategies</h5>
+                <p>After identifying at-risk customers, consider these approaches:</p>
                 <ul>
-                  <li>High-risk customers: Implement immediate retention strategies</li>
-                  <li>Medium-risk customers: Enhance engagement and satisfaction</li>
-                  <li>Low-risk customers: Maintain current relationship strategy</li>
+                  <li>Offer contract upgrades with incentives</li>
+                  <li>Provide special pricing for long-term commitments</li>
+                  <li>Bundle services with tech support</li>
+                  <li>Create loyalty programs for month-to-month customers</li>
+                  <li>Encourage automatic payment methods over manual ones</li>
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Features Section -->
-    <h3 class="text-center mb-4">Key Features</h3>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card p-4 h-100">
-          <div class="text-center">
-            <i class="fas fa-brain feature-icon"></i>
-            <h5 class="mt-3">AI-Powered Predictions</h5>
-            <p>Our machine learning models analyze multiple data points to accurately predict customer churn.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card p-4 h-100">
-          <div class="text-center">
-            <i class="fas fa-chart-line feature-icon"></i>
-            <h5 class="mt-3">Advanced Analytics</h5>
-            <p>Interactive dashboards help you visualize trends and understand key churn factors.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card p-4 h-100">
-          <div class="text-center">
-            <i class="fas fa-tasks feature-icon"></i>
-            <h5 class="mt-3">Actionable Recommendations</h5>
-            <p>Receive targeted retention strategies based on individual customer risk profiles.</p>
           </div>
         </div>
       </div>
@@ -366,23 +592,72 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Highlight the active tab based on current URL
+    // Form validation and dynamic field handling
     document.addEventListener('DOMContentLoaded', function() {
-      const currentPath = window.location.pathname;
-      const tabLinks = document.querySelectorAll('.nav-tabs .nav-link');
+      // Show/hide multiple lines field based on phone service
+      const phoneServiceSelect = document.querySelector('select[name="PhoneService"]');
+      const multipleLinesSelect = document.querySelector('select[name="MultipleLines"]');
 
-      // Remove active class from all tabs first
-      tabLinks.forEach(tab => tab.classList.remove('active'));
+      if (phoneServiceSelect && multipleLinesSelect) {
+        const updateMultipleLinesOptions = () => {
+          if (phoneServiceSelect.value === "No") {
+            multipleLinesSelect.value = "No phone service";
+            multipleLinesSelect.disabled = true;
+          } else {
+            if (multipleLinesSelect.value === "No phone service") {
+              multipleLinesSelect.value = "No";
+            }
+            multipleLinesSelect.disabled = false;
+          }
+        };
 
-      // Find and activate the correct tab
-      tabLinks.forEach(tab => {
-        const tabPath = tab.getAttribute('href');
-        if ((currentPath === tabPath) ||
-            (currentPath === '/' && tabPath === '/') ||
-            (currentPath === '' && tabPath === '/')) {
-          tab.classList.add('active');
-        }
-      });
+        phoneServiceSelect.addEventListener('change', updateMultipleLinesOptions);
+        updateMultipleLinesOptions();
+      }
+
+      // Show/hide internet-dependent fields based on internet service
+      const internetServiceSelect = document.querySelector('select[name="InternetService"]');
+      const internetDependentSelects = document.querySelectorAll('select[name="OnlineSecurity"], select[name="OnlineBackup"], select[name="DeviceProtection"], select[name="TechSupport"], select[name="StreamingTV"], select[name="StreamingMovies"]');
+
+      if (internetServiceSelect && internetDependentSelects.length) {
+        const updateInternetDependentOptions = () => {
+          if (internetServiceSelect.value === "No") {
+            internetDependentSelects.forEach(select => {
+              select.value = "No internet service";
+              select.disabled = true;
+            });
+          } else {
+            internetDependentSelects.forEach(select => {
+              if (select.value === "No internet service") {
+                select.value = "No";
+              }
+              select.disabled = false;
+            });
+          }
+        };
+
+        internetServiceSelect.addEventListener('change', updateInternetDependentOptions);
+        updateInternetDependentOptions();
+      }
+
+      // Calculate total charges based on monthly charges and tenure when these fields change
+      const tenureInput = document.querySelector('input[name="tenure"]');
+      const monthlyChargesInput = document.querySelector('input[name="MonthlyCharges"]');
+      const totalChargesInput = document.querySelector('input[name="TotalCharges"]');
+
+      if (tenureInput && monthlyChargesInput && totalChargesInput) {
+        const calculateTotalCharges = () => {
+          const tenure = parseFloat(tenureInput.value) || 0;
+          const monthlyCharges = parseFloat(monthlyChargesInput.value) || 0;
+
+          // Simple estimate - could be more complex in real application
+          const totalEstimate = tenure * monthlyCharges;
+          totalChargesInput.value = totalEstimate.toFixed(2);
+        };
+
+        tenureInput.addEventListener('input', calculateTotalCharges);
+        monthlyChargesInput.addEventListener('input', calculateTotalCharges);
+      }
     });
   </script>
 </body>
